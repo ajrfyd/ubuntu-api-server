@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import cors from "cors"
 import dotenv from "dotenv";
 import path from "path";
-// import "./utils/dotenv.js";
+import { logger } from "./middleware/index.js";
 import { log, __dirname } from "./utils/index.js";
 
 dotenv.config({
@@ -18,6 +18,8 @@ app.use(cors({
   origin: ["http://localhost:5173", "https://k-log3943.netlify.app"],
   methods: ["GET", "POST"]
 }));
+
+app.use(logger);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("<h1>Welcome to hk's Api Server;</h1>");

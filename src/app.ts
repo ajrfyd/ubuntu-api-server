@@ -12,6 +12,13 @@ dotenv.config({
 const { PORT } = process.env;
 const app = express();
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors({
+  origin: ["http://localhost:5173", "https://k-log3943.netlify.app"],
+  methods: ["GET", "POST"]
+}));
+
 app.get("/", (req: Request, res: Response) => {
   res.send("<h1>Welcome to hk's Api Server;</h1>");
 });

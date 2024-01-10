@@ -54,3 +54,9 @@ export type UserInfoType = {
   created_at: string;
   updated_at: string;
 };
+
+export type ResponsTokenType = {
+  access_token: string;
+  token_type: string;
+  scope: string;
+};

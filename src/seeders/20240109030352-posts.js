@@ -23,36 +23,36 @@ module.exports = {
         id: "312940b6-33ae-4aca-88df-defbe0c9c73e",
         title: "Intl Api",
         body: "# Intl Api\n\n### 다국어 지원 Api\n\n\n### * 동기\n전 회사에서 글로벌한 서비스를 위해 다양한 언어 및 날짜 숫자 등에 대해\n\n번환이 필요 하였다. 기본은 node 환경에서 i18next모듈로 번역 및 변환을 할 수 있었다.\n\n하지만 i18next 모듈은 한글.json파일을 기준으로 번역된 json파일이 있어야 매칭 번역이 가능하였다.\n\n개발 환경에서는 번역된 다른나라 언어 json 파일을 받기까지 시간이 꾀 걸려 불편하기에 \n\n간단하게 변환할 수 있는 방법을 찾게 된 것이 Intl Api 이다.\n\n### * 기본 사용방법\n```js\n//* Datetime format\nnew Intl.DateTimeFormat().format();\n//* Number format\nnew Intl.NumberFormat().format();\n//* RelativeTime Format\nnew Intl.RelativeTimeFormat().format();\n```\n### * DateTimeFormat\n```js\nnew Intl.DateTimeFormat(\"ko\", { dateStyle: 'full' }).format(new Date());\n//* 2023년 1월 19일 목요일\nnew Intl.DateTimeFormat(\"ko\", { dateStyle: 'long' }).format(new Date());\n//* 2023년 1월 19일\nnew Intl.DateTimeFormat(\"ko\", { dateStyle: 'medium' }).format(new Date());\n//* 2023.01.19.\nnew Intl.DateTimeFormat(\"ko\", { dateStyle: 'short' }).format(new Date());\n//* 23.01.19.\nnew Intl.DateTimeFormat(\"ko\", { timeStyle: 'full' }).format(new Date());\n//* 오전 12시 4분 54초 대한민국 표준시 \nnew Intl.DateTimeFormat(\"ko\", { timeStyle: 'long' }).format(new Date());\n//* 오전 12시 5분 39초 GMT+9\nnew Intl.DateTimeFormat(\"ko\", { timeStyle: 'medium' }).format(new Date());\n//* 오전 12:06:02\nnew Intl.DateTimeFormat(\"ko\", { timeStyle: 'short' }).format(new Date());\n//* 오전 12:06\n```\n\n### * NumberFormat\n```js\nnew Intl.NumberFormat('ko', { style: 'percent' }).format(0.5);\n//*  50%\nnew Intl.NumberFormat('ko', { style: 'currency', currency: 'KRW' }).format(1238214);\n//* ₩1,238,214\nnew Intl.NumberFormat('ko', { style: 'currency', currency: 'EUR' }).format(32.12);\n//* €32.12\nnew Intl.NumberFormat('ko', { style: 'unit', unit: 'kilogram' }).format(53);\n//* '53kg'\n```\n\n### * RelativeTimeFormat\n```js\nconst rTf = new Intl.RelativeTimeFormat(\"ko\");\nrtf.format(1, \"day\");\n//* 1일 후\nrTf.format(-1, \"quarter\");\n//* 1분기 전\n//* 시간은 직접 계산해 줘야 함.\n```",
-        createdAt: "2023-11-15",
-        updatedAt: "2023-11-15"
+        createdAt: "2023-11-29",
+        updatedAt: "2023-11-29"
       },
       {
         id: "abed2d5b-b74d-4bb8-8402-c41ffd9c4d2b",
         title: "React select library",
         body: "# React-select library\n\n### 설치 방법\n```js\nnpm i  react-select\n```\n\n\n### 사용방법\n```js\n//* 사용자가 옵션을 추가 해야 하는 경우\nimport CreatableSelect from \"react-select/creatable\";\n\n<>\n    <CreatableSelect\n        //* 다중 셀렉트 옵션\n        isMulti\n        //* 옵션을 새로 추가 할때 입력한 value값이 들어온다\n        //* 여기서 서버에 맞게 상태 업데이트 해줌\n        onCreatebleOption={(value) => setState(value)}\n        value={state => state.map(value => ({label: option 이름으로 사용될 state의 값, value: input value 속정으로 사용될 값}))}\n        //* 옵션을 삭제 하거나 변경할때 객체 값이 들어온다\n        onChange={(obj) => 여기서 state 값 업데이트 해준다} \n    />\n</>\n\n//* 옵션을 선택만 해야 하는 경우\nimport ReactSelect from \"react-select\";\n<>\n  <ReactSelect\n    isMulti\n    onCreateOption\n    value\n    //* 사용자들이 선택할 수 있는 옵션\n    options={(state) => state.map(option => ({label: option.label, value: option.value}))}\n    onChange\n  />\n</>\n```\n\n###  연구 필요⚠️\n- 타입스크립트 스타일 오버라이트시 onChange 값으로 들어오는 타입에 문제 생김.\n- Type Assertion으로 어찌어찌 동작은 하나 연구가 필요함.\n\n\n<a href=\"https://react-select.com/home\" target=\"_blank\">[참조]</a>",
-        createdAt: "2023-11-15",
-        updatedAt: "2023-11-15"
+        createdAt: "2023-11-29",
+        updatedAt: "2023-11-29"
       },
       {
         id: "8423bc2a-efa9-438b-b721-88ba843c01bb",
         title: "Typescript와 객체",
         body: "# Typescript와 객체\n\n타입스크립트에서 보통 객체의 타입을\n```js\ntype SomeObjType = {\n  name: string;\n  age: number;\n  gender: \"male\" | \"female\";\n  hobby: Array<string>;\n};\n```\n보통 이런 식으로 정의한다. \n\n하지만 위와 같은 방법으로 타입을 정의하게 된다면 \n\n항상 객체 안에는 name, age, gender, hobby 라는 프로퍼티는 꼭 존재해야 한다.\n\n물론 프로퍼티를 옵셔널(?)로 설정하면 괜찮다. \n\n자바스크립트 프로그래밍을 하다 보면 정의하지 않은 프로퍼티가 필요한 경우가 있을 것이다..\n\n필요할때 마다 기존 타입을 상속받아 사용할 수 있지만...\n\n### 이렇게 객체에 어떤 프로퍼티가 있을지 명확하게 모르는 경우 사용한다.\n\n\n```\ntype Obj = {\n    [key: string]: string | number;\n};\n```\n\n이런 식으로 사용하면 OK!(프로퍼티에는 리터럴타입만 허용된다고 함)\n\n[주절주절]\n\n\n동적 타입이 단점이라고 이야기 하지만 \n\n그로 인해 유연한 프로그래밍과 재미가 더해 지는 것이라 생각\n\n타입스크립트로 인해 얻는 장점이 많긴 하지만 \n\n객체를 다루며 놀이 하는 소소한 재미가 감소\n\n아직 부족한 내가 타입스크립트를 사용하면서도  객체를 \n\n결론은 다루는 재미를 느낄 수 있도록 노력해야 겠음",
-        createdAt: "2023-11-15",
-        updatedAt: "2023-11-15"
+        createdAt: "2023-11-04",
+        updatedAt: "2023-11-04"
       },
       {
         id: "693a8221-7634-4d67-a258-9b028a353f0e",
         title: "Vite 환경변수",
         body: "# Vite 환경변수\n\n###  기존의 React 환경변수\n\n```js\n//* .env\nREACT_APP_ENVNAME=value\n\n//* 사용처\nconst env1 = process.env.REACT_APP_ENVNAME;\n```\n### * Vite 에서는\n```js\n//* .env\n네이밍은 딱히 관계 없는듯하다 \n\n//* 사용처\nconst env1 = import.meta.env.VITE_ENVNAME;\n```\n",
-        createdAt: "2023-11-15",
-        updatedAt: "2023-11-15"
+        createdAt: "2023-11-20",
+        updatedAt: "2023-11-20"
       },
       {
         id: "aff8fb7e-7dae-4101-8129-bdc5fb6156c8",
         title: "which is not functionally dependent on columns in group by clause",
         body: "# SQL ONLY_FULL_GROUP_BY\n\n### * 상황\n\n회사에서는 Sequelize ORM 환경에서 로우쿼리와 Op, 프로시져를 통해 \n\n쿼리를 날리며 group을 할때는 전혀 발생하지 않았는데 쿼리를 알맞게 작성\n\n하였음에도 오류가 발생 하였다.\n\n> which is not functionally dependent on columns in group by clause...\n>\n>오류내용\n\n\n### * 원인\nmysql 5.7 버전 이후 sql_mode에 추가된 설정으로 바른 쿼리를 작성할 수 있도록 \n\n추가 된 것 같다. group_by에 명시되지 않은 컬럼을 선택하는 것이 의미적으로 \n\n정확하지 않고 표준 쿼리 작성에 어긋난다는 것이다. 여태 바르지 못한 쿼리를 작성\n\n하고 학습해 왔던 것이다...\n\n### * 해결 방법 \n구글링으로 많은 해결 방안이 나와 따로 적지는 않겠다.\n\n1. 그룹바이에 명시하지 않은 컬럼을 명시한다.\n2. sql_mode를 수정한다.\n3. 서브쿼리에서 그루핑한 컬럼을 선택한다.\n4. 그룹바이에 명시되지 않은 컬럼에 집계함수를 사용한다.\n\n이 정도의 해결 방법이 있는것 같다.",
-        createdAt: "2023-11-15",
-        updatedAt: "2023-11-15"
+        createdAt: "2023-10-15",
+        updatedAt: "2023-10-15"
       },
       {
         id: "a6cda2cc-51c0-40e1-8825-a65666ab2e33",

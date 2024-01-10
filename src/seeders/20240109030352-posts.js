@@ -30,22 +30,22 @@ module.exports = {
         id: "abed2d5b-b74d-4bb8-8402-c41ffd9c4d2b",
         title: "React select library",
         body: "# React-select library\n\n### 설치 방법\n```js\nnpm i  react-select\n```\n\n\n### 사용방법\n```js\n//* 사용자가 옵션을 추가 해야 하는 경우\nimport CreatableSelect from \"react-select/creatable\";\n\n<>\n    <CreatableSelect\n        //* 다중 셀렉트 옵션\n        isMulti\n        //* 옵션을 새로 추가 할때 입력한 value값이 들어온다\n        //* 여기서 서버에 맞게 상태 업데이트 해줌\n        onCreatebleOption={(value) => setState(value)}\n        value={state => state.map(value => ({label: option 이름으로 사용될 state의 값, value: input value 속정으로 사용될 값}))}\n        //* 옵션을 삭제 하거나 변경할때 객체 값이 들어온다\n        onChange={(obj) => 여기서 state 값 업데이트 해준다} \n    />\n</>\n\n//* 옵션을 선택만 해야 하는 경우\nimport ReactSelect from \"react-select\";\n<>\n  <ReactSelect\n    isMulti\n    onCreateOption\n    value\n    //* 사용자들이 선택할 수 있는 옵션\n    options={(state) => state.map(option => ({label: option.label, value: option.value}))}\n    onChange\n  />\n</>\n```\n\n###  연구 필요⚠️\n- 타입스크립트 스타일 오버라이트시 onChange 값으로 들어오는 타입에 문제 생김.\n- Type Assertion으로 어찌어찌 동작은 하나 연구가 필요함.\n\n\n<a href=\"https://react-select.com/home\" target=\"_blank\">[참조]</a>",
-        createdAt: "2023-11-29",
-        updatedAt: "2023-11-29"
+        createdAt: "2023-11-20",
+        updatedAt: "2023-11-20"
       },
       {
         id: "8423bc2a-efa9-438b-b721-88ba843c01bb",
         title: "Typescript와 객체",
         body: "# Typescript와 객체\n\n타입스크립트에서 보통 객체의 타입을\n```js\ntype SomeObjType = {\n  name: string;\n  age: number;\n  gender: \"male\" | \"female\";\n  hobby: Array<string>;\n};\n```\n보통 이런 식으로 정의한다. \n\n하지만 위와 같은 방법으로 타입을 정의하게 된다면 \n\n항상 객체 안에는 name, age, gender, hobby 라는 프로퍼티는 꼭 존재해야 한다.\n\n물론 프로퍼티를 옵셔널(?)로 설정하면 괜찮다. \n\n자바스크립트 프로그래밍을 하다 보면 정의하지 않은 프로퍼티가 필요한 경우가 있을 것이다..\n\n필요할때 마다 기존 타입을 상속받아 사용할 수 있지만...\n\n### 이렇게 객체에 어떤 프로퍼티가 있을지 명확하게 모르는 경우 사용한다.\n\n\n```\ntype Obj = {\n    [key: string]: string | number;\n};\n```\n\n이런 식으로 사용하면 OK!(프로퍼티에는 리터럴타입만 허용된다고 함)\n\n[주절주절]\n\n\n동적 타입이 단점이라고 이야기 하지만 \n\n그로 인해 유연한 프로그래밍과 재미가 더해 지는 것이라 생각\n\n타입스크립트로 인해 얻는 장점이 많긴 하지만 \n\n객체를 다루며 놀이 하는 소소한 재미가 감소\n\n아직 부족한 내가 타입스크립트를 사용하면서도  객체를 \n\n결론은 다루는 재미를 느낄 수 있도록 노력해야 겠음",
-        createdAt: "2023-11-04",
-        updatedAt: "2023-11-04"
+        createdAt: "2023-10-21",
+        updatedAt: "2023-10-21"
       },
       {
         id: "693a8221-7634-4d67-a258-9b028a353f0e",
         title: "Vite 환경변수",
         body: "# Vite 환경변수\n\n###  기존의 React 환경변수\n\n```js\n//* .env\nREACT_APP_ENVNAME=value\n\n//* 사용처\nconst env1 = process.env.REACT_APP_ENVNAME;\n```\n### * Vite 에서는\n```js\n//* .env\n네이밍은 딱히 관계 없는듯하다 \n\n//* 사용처\nconst env1 = import.meta.env.VITE_ENVNAME;\n```\n",
-        createdAt: "2023-11-20",
-        updatedAt: "2023-11-20"
+        createdAt: "2023-11-10",
+        updatedAt: "2023-11-10"
       },
       {
         id: "aff8fb7e-7dae-4101-8129-bdc5fb6156c8",

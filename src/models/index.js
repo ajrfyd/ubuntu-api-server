@@ -1,29 +1,29 @@
-'use strict';
+import Sequelize from "sequelize";
+import config from "../config/config.js";
+import Tag from "./klog/Tag.js";
+import BridgeTag from "./klog/BridgeTag.js";
+import Post from "./klog/Post.js";
 
-const fs = require('fs');
-const path = require('path');
-const Sequelize = require('sequelize');
-const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.json')[env];
+const { NODE_ENV, KLOG_USERNAME, KLOG_PWD, KLOG_DBNAME,
+  KLOG_DEV_USERNAME, KLOG_DEV_PWD, KLOG_DEV_DBNAME
+} = process.env;
+
+const env = NODE_ENV || "development";
+
 const db = {};
+const sequelize = new Sequelize(
+  config[env].database,
+  config[env].username,
+  config[env].password,
+  config[env]
+);
 
-let sequelize;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
-}
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
 
-fs
-  .readdirSync(__dirname)
-  .filter(file => {
-    return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
-  })
-  .forEach(file => {
-    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
-    db[model.name] = model;
-  });
+db.Pots = Post(sequelize, Sequelize);
+db.Tag = Tag(sequelize, Sequelize);
+db.BridgeTag = BridgeTag(sequelize, Sequelize);
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
@@ -31,7 +31,5 @@ Object.keys(db).forEach(modelName => {
   }
 });
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
 
-module.exports = db;
+export default db;

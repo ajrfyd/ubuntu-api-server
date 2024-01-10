@@ -14,5 +14,3 @@ export type InitResponseType<T> = {
   message: string;
   result: T | null
 };
-
-

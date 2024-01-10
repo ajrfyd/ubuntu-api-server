@@ -21,7 +21,7 @@ const sequelize = new Sequelize(
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-db.Pots = Post(sequelize, Sequelize);
+db.Post = Post(sequelize, Sequelize);
 db.Tag = Tag(sequelize, Sequelize);
 db.BridgeTag = BridgeTag(sequelize, Sequelize);
 

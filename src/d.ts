@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { InitResponseType } from './types/index.js';
+import { InitResponseType, TagType } from './types/index.js';
 
 type Init<T> = {
   status: number;
@@ -11,7 +11,8 @@ declare global {
   namespace Express {
     interface Request {
       resultState: InitResponseType<R>;
-
+      tags: TagType[];
+      isAdmin: boolean;
     }
 
   }

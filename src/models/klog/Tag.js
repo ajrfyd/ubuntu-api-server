@@ -23,7 +23,8 @@ const Tag = (sequelize, DataTypes) => {
       paranoid: false
   });
 
-  // tag.associate = (model) => tag.hasOne(model.BridgeTag, { foreignKey: "tagId", targetId: "id", onDelete: "SET NULL" });
+  // tag.associate = (model) => tag.belongsTo(model.BridgeTag, { foreignKey: "tagId", targetId: "id", onDelete: "SET NULL" });
+  
   return tag;
 };
 

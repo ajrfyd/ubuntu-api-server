@@ -35,6 +35,8 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use(errorHandler);
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   log(`Server Listening On Port: ${PORT}`);
 });
+
+console.log(server.address());

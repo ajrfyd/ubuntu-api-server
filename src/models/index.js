@@ -4,9 +4,7 @@ import Tag from "./klog/Tag.js";
 import BridgeTag from "./klog/BridgeTag.js";
 import Post from "./klog/Post.js";
 
-const { NODE_ENV, KLOG_USERNAME, KLOG_PWD, KLOG_DBNAME,
-  KLOG_DEV_USERNAME, KLOG_DEV_PWD, KLOG_DEV_DBNAME
-} = process.env;
+const { NODE_ENV } = process.env;
 
 const env = NODE_ENV || "development";
 

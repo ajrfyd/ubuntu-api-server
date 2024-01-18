@@ -1,5 +1,5 @@
 const Post = (sequelize, DataTypes) => {
-  const { STRING, DATE, TEXT } = DataTypes;
+  const { STRING, DATE, TEXT, BIGINT } = DataTypes;
 
   const post = sequelize.define("Post", {
     id: {
@@ -34,6 +34,12 @@ const Post = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: "7e1f58cd-9507-48f1-a3da-4dbbee031389",
       comment: "글쓴이"
+    },
+    view_cnt: {
+      type: BIGINT.UNSIGNED,
+      allowNull: false,
+      defaultValue: 0,
+      comment: "조회수"
     }
   }, {
     tableName: "Post",

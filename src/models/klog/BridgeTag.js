@@ -2,13 +2,13 @@ const BridgeTag = (sequelize, DataTypes) => {
   const { BIGINT } = DataTypes;
 
   const bridgeTag = sequelize.define("BridgeTag", {
-    // bId: {
-    //   type: BIGINT.UNSIGNED,
-    //   allowNull: false,
-    //   primaryKey: true,
-    //   autoIncrement: true,
-    //   comment: "브릿지고유아이디"
-    // },
+    bId: {
+      type: BIGINT.UNSIGNED,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true,
+      comment: "브릿지고유아이디"
+    },
   }, {
     tableName: "BridgeTag",
     paranoid: false,

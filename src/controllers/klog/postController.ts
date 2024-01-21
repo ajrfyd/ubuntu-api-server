@@ -100,7 +100,6 @@ const postController = {
     if(toBeSaved.length) {
       const result = await db.Tag.bulkCreate(makeNewTags(toBeSaved));
 
-
       toBeSaved = takeDataValues(result);
     };
 

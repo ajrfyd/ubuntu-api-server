@@ -3,7 +3,7 @@ import { RouteType } from "../../types";
 const tags: RouteType[] = [
   {
     method: "get",
-    path: "/",
+    path: "/tags",
     handler: async (req, res) => {
       const { resultState, tags } = req;
       return res.json({

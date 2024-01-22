@@ -175,7 +175,27 @@ module.exports = {
       {
         "tagId": "c544c57a-6c11-42ba-8d43-9773f9952fbd",
         "postId": "281af4ae-a091-4e02-9d5e-0a5f47612a9e"
-      }
+      },
+      {
+        "tagId": "bc07ccf1-ea1f-4204-a863-785076d026c8",
+        "postId": "16622b8a-f4ec-443c-bbb8-371d794e8d47"
+      },
+      {
+        "tagId": "b146d159-1d19-42cf-8686-f8d2e6ed22fa",
+        "postId": "16622b8a-f4ec-443c-bbb8-371d794e8d47"
+      },
+      {
+        "tagId": "b146d159-1d19-42cf-8686-f8d2e6ed22fa",
+        "postId": "fed75adf-167d-49ea-9034-9464181458a4"
+      },
+      {
+        "tagId": "95f1975f-9f9d-4c3c-9340-c9a7342b28b7",
+        "postId": "fed75adf-167d-49ea-9034-9464181458a4"
+      },
+      {
+        "tagId": "5cb3eeb0-200d-4669-9a77-0af90ec987d7",
+        "postId": "fed75adf-167d-49ea-9034-9464181458a4"
+      },
     ]);
   },
 

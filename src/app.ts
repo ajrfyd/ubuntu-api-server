@@ -35,6 +35,10 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use(errorHandler);
 
+app.get("/*", (req, res) => {
+  res.status(404).send("<h1>404</h1>");
+});
+
 const server = app.listen(PORT, () => {
   log(`Server Listening On Port: ${PORT}`);
 });

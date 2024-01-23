@@ -15,8 +15,11 @@ import { log, __dirname, errorHandler } from "./utils/index.js";
 
 const { PORT } = process.env;
 const app = express();
+const staticPath = path.join(__dirname, "/src/assets");
 
 db.sequelize.sync().catch(console.log);
+app.use(express.static(staticPath));
+app.use("/static", express.static(path.resolve(__dirname, "..", "..", "..", "./files")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
@@ -36,11 +39,9 @@ app.get("/", (req: Request, res: Response) => {
 app.use(errorHandler);
 
 app.get("/*", (req, res) => {
-  res.status(404).send("<h1>404</h1>");
+  res.status(404).sendFile(staticPath + "/html/404.html");
 });
 
-const server = app.listen(PORT, () => {
+app.listen(PORT, () => {
   log(`Server Listening On Port: ${PORT}`);
 });
-
-console.log(server.address());

@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     /**
      * Add seed commands here.
      *
@@ -10,107 +10,107 @@ module.exports = {
      *   name: 'John Doe',
      *   isBetaMember: false
      * }], {});
-    */
+     */
     await queryInterface.bulkInsert("Tag", [
       {
         label: "All",
-        id: "a8c69f24-d448-4d23-aef7-22f4b62415b5"
+        id: "a8c69f24-d448-4d23-aef7-22f4b62415b5",
       },
       {
         id: "ee068a59-07de-41d9-b06a-469656e80a87",
-        label: "option"
+        label: "option",
       },
       {
         label: "config",
-        id: "f2cf1013-0c1a-4df7-b8dd-06cace2e4bb6"
+        id: "f2cf1013-0c1a-4df7-b8dd-06cace2e4bb6",
       },
       {
         label: "query",
-        id: "ff94d14d-b6b5-477b-9e96-6300524e10dc"
+        id: "ff94d14d-b6b5-477b-9e96-6300524e10dc",
       },
       {
         label: "sql",
-        id: "ceac2eda-e2d2-455a-b00b-ab1a0d4a7b53"
+        id: "ceac2eda-e2d2-455a-b00b-ab1a0d4a7b53",
       },
       {
         label: "Intl",
-        id: "8d17c251-2dc0-4ae5-a22b-e7ba3b40a580"
+        id: "8d17c251-2dc0-4ae5-a22b-e7ba3b40a580",
       },
       {
         label: "ejs",
-        id: "10f4725b-fd0b-4692-9741-37de565722e6"
+        id: "10f4725b-fd0b-4692-9741-37de565722e6",
       },
       {
         id: "7afd464b-e9ac-431e-b445-3d4da7c9820f",
-        label: "nodejs"
+        label: "nodejs",
       },
       {
         id: "2abc5b37-1697-4eeb-b130-bded876f15e1",
-        label: "vite"
+        label: "vite",
       },
       {
         id: "c514cb52-9ced-410d-8cfb-de99c1800744",
-        label: "netlify"
+        label: "netlify",
       },
       {
         id: "df395449-cd1c-481f-adfe-07dd9333fc5d",
-        label: "deploy"
+        label: "deploy",
       },
       {
         id: "d3e58de5-da95-4222-85db-0e922593266b",
-        label: "object"
+        label: "object",
       },
       {
         id: "90e2feb4-c026-45dc-a732-96ace05d58db",
-        label: "key"
+        label: "key",
       },
       {
         id: "07ae7be8-90f7-4d6a-a645-00f829c8ba4a",
-        label: "library"
+        label: "library",
       },
       {
         id: "1705b879-790a-4ff8-9f96-c10a0d00e703",
-        label: "select"
+        label: "select",
       },
       {
         id: "f2e08ed6-9526-4fac-948a-3674652fe0ab",
-        label: "Api"
+        label: "Api",
       },
       {
         id: "1a6d8d2b-278a-4ece-9271-627a4f115525",
-        label: "typescript"
+        label: "typescript",
       },
       {
         id: "b146d159-1d19-42cf-8686-f8d2e6ed22fa",
-        label: "javascript"
+        label: "javascript",
       },
       {
         id: "c73e7611-bfbb-45f8-8e93-48517cb1454c",
-        label: "react"
+        label: "react",
       },
       {
         id: "e35b88d8-9861-4793-a831-eddb950f5f27",
-        label: "ssh"
+        label: "ssh",
       },
       {
         id: "8b5443e2-fea2-4f2d-8e04-c85489a4be5c",
-        label: "ubuntu"
+        label: "ubuntu",
       },
       {
         id: "c544c57a-6c11-42ba-8d43-9773f9952fbd",
-        label: "webserver"
+        label: "webserver",
       },
       {
         id: "4296b72f-ac63-4763-b598-0874a909e81e",
-        label: "network"
+        label: "network",
       },
       {
         id: "4ce4411b-a18d-4657-ae5e-da6990af19b6",
-        label: "was"
+        label: "was",
       },
       {
         id: "2c2fad17-0649-440f-96ee-918632d8e57f",
-        label: "nginx"
+        label: "nginx",
       },
       {
         id: "914f2431-c4bc-4576-ab19-8385fe3e1672",
@@ -118,25 +118,44 @@ module.exports = {
       },
       {
         id: "560e49e4-a517-4f4c-8cfa-4ab144196ad0",
-        label: "Class"
+        label: "Class",
       },
       {
         id: "bc07ccf1-ea1f-4204-a863-785076d026c8",
-        label: "reduce"
+        label: "reduce",
       },
       {
         id: "95f1975f-9f9d-4c3c-9340-c9a7342b28b7",
-        label: "function"
+        label: "function",
       },
       {
         id: "5cb3eeb0-200d-4669-9a77-0af90ec987d7",
-        label: "context"
-      }
-    ])
-
+        label: "context",
+      },
+      {
+        id: "7754afb4-cbe8-4940-a96c-438a98783fc9",
+        label: "state",
+      },
+      {
+        id: "84939cae-5480-4e42-a809-b6b1b1283767",
+        label: "flux",
+      },
+      {
+        id: "b756f59b-8db3-4cb5-9ecf-0dc0b16e7bf2",
+        label: "redux",
+      },
+      {
+        id: "4c355fb8-5388-487c-ad3e-b2d2aaf9a1c3",
+        label: "plugin",
+      },
+      {
+        id: "b5da1d1f-ce11-475a-8b63-326fca31c157",
+        label: "value",
+      },
+    ]);
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     /**
      * Add commands to revert seed here.
      *
@@ -144,5 +163,5 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
     await queryInterface.bulkDelete("Tag");
-  }
+  },
 };

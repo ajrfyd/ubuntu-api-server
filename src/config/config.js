@@ -1,6 +1,11 @@
 // const dotenv = require("dotenv").config();
-const { KLOG_USERNAME, KLOG_PWD, KLOG_DBNAME,
-  KLOG_DEV_USERNAME, KLOG_DEV_PWD, KLOG_DEV_DBNAME
+const {
+  KLOG_USERNAME,
+  KLOG_PWD,
+  KLOG_DBNAME,
+  KLOG_DEV_USERNAME,
+  KLOG_DEV_PWD,
+  KLOG_DEV_DBNAME,
 } = process.env;
 // console.log(`%c${KLOG_DEV_USERNAME}`, "color: red");
 // console.log(`%c${KLOG_USERNAME}`, "color: red");
@@ -14,7 +19,11 @@ const config = {
     host: "127.0.0.1",
     dialect: "mysql",
     timezone: "+09:00",
-    logging: false
+    dialectOptions: {
+      dateStrings: true,
+      typeCast: true,
+    },
+    logging: false,
   },
   test: {
     username: KLOG_USERNAME,
@@ -22,7 +31,7 @@ const config = {
     database: KLOG_DBNAME,
     host: "127.0.0.1",
     dialect: "mysql",
-    timezone: "+09:00"
+    timezone: "+09:00",
   },
   production: {
     username: KLOG_USERNAME,
@@ -31,8 +40,12 @@ const config = {
     host: "127.0.0.1",
     dialect: "mysql",
     timezone: "+09:00",
-    logging: false
-  }
+    dialectOptions: {
+      dateStrings: true,
+      typeCast: true,
+    },
+    logging: false,
+  },
 };
 
 export default config;

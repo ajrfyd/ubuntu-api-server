@@ -1,12 +1,11 @@
 import express, { Request, Response } from "express";
-import cors from "cors"
+import cors from "cors";
 // import dotenv from "dotenv";
 import "./config/init.js";
 import path from "path";
 import db from "./models/index.js";
 import router from "./routes/index.js";
-import { logger, initResponseObj, getAllTags,
-} from "./middleware/index.js";
+import { logger, initResponseObj, getAllTags } from "./middleware/index.js";
 import { log, __dirname, errorHandler } from "./utils/index.js";
 
 // dotenv.config({
@@ -21,11 +20,18 @@ db.sequelize.sync().catch(console.log);
 app.use(express.static(staticPath));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({
-  origin: ["http://localhost:5173", "https://k-log3943.netlify.app", "http://localhost:5500"],
-  methods: ["GET", "POST", "OPTIONS"],
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://k-log3943.netlify.app",
+      "http://localhost:5500",
+      "https://klog.hkound.pe.kr",
+    ],
+    methods: ["GET", "POST", "OPTIONS"],
+    credentials: true,
+  })
+);
 
 app.use(logger, initResponseObj, getAllTags);
 

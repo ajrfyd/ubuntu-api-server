@@ -254,6 +254,42 @@ module.exports = {
         postId: "b36b2894-192f-4560-8dda-5c03e714d865",
         tagId: "b5da1d1f-ce11-475a-8b63-326fca31c157",
       },
+      {
+        postId: "855a405e-9228-4871-8e46-e2bd075f7e26",
+        tagId: "f2e08ed6-9526-4fac-948a-3674652fe0ab",
+      },
+      {
+        postId: "855a405e-9228-4871-8e46-e2bd075f7e26",
+        tagId: "277f3b9c-0f4e-4c40-acce-cdb371cd135d",
+      },
+      {
+        postId: "855a405e-9228-4871-8e46-e2bd075f7e26",
+        tagId: "4832f3fa-608b-4227-96f6-09951d9deed0",
+      },
+      {
+        postId: "35e2c911-8b3e-4b4c-bac7-8299e21c8f19",
+        tagId: "c73e7611-bfbb-45f8-8e93-48517cb1454c",
+      },
+      {
+        postId: "35e2c911-8b3e-4b4c-bac7-8299e21c8f19",
+        tagId: "bac1a925-4e25-4f3d-9149-8374758e19f7",
+      },
+      {
+        postId: "4545f6b0-cba3-435c-bdd2-866f24e5a124",
+        tagId: "c73e7611-bfbb-45f8-8e93-48517cb1454c",
+      },
+      {
+        postId: "4545f6b0-cba3-435c-bdd2-866f24e5a124",
+        tagId: "6b8b2d7b-d13b-4b0f-a290-19ce48638a12",
+      },
+      {
+        postId: "4545f6b0-cba3-435c-bdd2-866f24e5a124",
+        tagId: "719ce626-9bed-42c3-aff2-f643cef4b6bc",
+      },
+      {
+        postId: "4545f6b0-cba3-435c-bdd2-866f24e5a124",
+        tagId: "135363a5-3ded-4422-a801-2022c2765a0c",
+      },
     ]);
   },
 

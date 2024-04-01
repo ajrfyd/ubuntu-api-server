@@ -5,6 +5,13 @@ export * from "./oauth.js";
 
 export const logger = (req: Request, res: Response, next: NextFunction) => {
   const { headers } = req;
-  log(`IP: ${headers["x-real-ip"]}\nAgent: ${headers["user-agent"]}`);
+  log(
+    `IP: ${headers["x-real-ip"]}\nAgent: ${
+      headers["user-agent"]
+    }\nDate: ${new Intl.DateTimeFormat("ko-kr", {
+      dateStyle: "long",
+      timeStyle: "short",
+    }).format(new Date(Date.now()))}`
+  );
   next();
 };

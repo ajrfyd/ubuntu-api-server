@@ -152,6 +152,30 @@ module.exports = {
         id: "b5da1d1f-ce11-475a-8b63-326fca31c157",
         label: "value",
       },
+      {
+        id: "277f3b9c-0f4e-4c40-acce-cdb371cd135d",
+        label: "error",
+      },
+      {
+        id: "4832f3fa-608b-4227-96f6-09951d9deed0",
+        label: "fetch",
+      },
+      {
+        id: "bac1a925-4e25-4f3d-9149-8374758e19f7",
+        label: "folder",
+      },
+      {
+        id: "6b8b2d7b-d13b-4b0f-a290-19ce48638a12",
+        label: "search",
+      },
+      {
+        id: "719ce626-9bed-42c3-aff2-f643cef4b6bc",
+        label: "google",
+      },
+      {
+        id: "135363a5-3ded-4422-a801-2022c2765a0c",
+        label: "seo",
+      },
     ]);
   },
 

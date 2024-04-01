@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
-// import dotenv from "dotenv";
+import cookieparser from "cookie-parser";
 import "./config/init.js";
 import path from "path";
 import db from "./models/index.js";
@@ -12,7 +12,7 @@ import { log, __dirname, errorHandler } from "./utils/index.js";
 //   path: path.join(__dirname, "./.env")
 // });
 
-const { PORT } = process.env;
+const { PORT, COOKIE_SECRET } = process.env;
 const app = express();
 const staticPath = path.join(__dirname, "/src/assets");
 
@@ -20,6 +20,7 @@ db.sequelize.sync().catch(console.log);
 app.use(express.static(staticPath));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieparser(COOKIE_SECRET));
 app.use(
   cors({
     origin: [

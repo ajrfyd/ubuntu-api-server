@@ -1,12 +1,20 @@
 import { v4 } from "uuid";
 import db from "../../models/index.js";
-import { makeTagObj, newTagFilter, makeNewTags,
-  takeDataValues, makeBridgeTags, makeAllNewTags,
-  makeBridgeTagsById 
+import {
+  makeTagObj,
+  newTagFilter,
+  makeNewTags,
+  takeDataValues,
+  makeBridgeTags,
+  makeAllNewTags,
+  makeBridgeTagsById,
 } from "../../utils/utilsJs.js";
-import { BeforePostType, PostType, TagType, 
-  TobeSavedPostType 
-} from "../../types/index.js"
+import {
+  BeforePostType,
+  PostType,
+  TagType,
+  TobeSavedPostType,
+} from "../../types/index.js";
 const { sequelize, Post, BridgeTag } = db;
 
 const postController = {
@@ -30,9 +38,9 @@ const postController = {
 
     const data: BeforePostType = await sequelize.query(query, {
       raw: true,
-      type: sequelize.QueryTypes.SELECT
+      type: sequelize.QueryTypes.SELECT,
     });
-      
+
     return makeTagObj(data);
   },
   //! 단일 게시글 조회
@@ -55,7 +63,7 @@ const postController = {
     const result: BeforePostType = await sequelize.query(query, {
       raw: true,
       type: sequelize.QueryTypes.SELECT,
-      replacements: [id]
+      replacements: [id],
     });
 
     const [post] = makeTagObj(result);
@@ -82,7 +90,7 @@ const postController = {
       ${all ? "" : "WHERE tmp.tags LIKE :tagId"}
       ;
     `;
-  
+
     const result: BeforePostType[] = await sequelize.query(query, {
       type: sequelize.QueryTypes.SELECT,
       raw: true,
@@ -95,40 +103,46 @@ const postController = {
   createPost: async (data: TobeSavedPostType, serverTags: TagType[]) => {
     const { title, body, tags } = data;
     let toBeSaved: TagType[] = newTagFilter(tags, serverTags);
-    
+
     //! step1 : 태그 테이블에 없는 태그를 저장
-    if(toBeSaved.length) {
+    if (toBeSaved.length) {
       const result = await db.Tag.bulkCreate(makeNewTags(toBeSaved));
 
       toBeSaved = takeDataValues(result);
-    };
+    }
 
     //! step2 : 게시글을 저장
-    const { dataValues } = await Post.create({ id: v4(), title, body }, { raw: true });
+    const { dataValues } = await Post.create(
+      { id: v4(), title, body },
+      { raw: true }
+    );
 
     //! 서버에서 생성한 ID를 가진 태그와 기존의 중복된 태그와 합침
     const bridgeTags = makeBridgeTags(tags, toBeSaved, dataValues);
 
     //! step3 : 브릿지태그 테이블 생성
-    if(tags.length) {
+    if (tags.length) {
       await BridgeTag.bulkCreate(bridgeTags);
     }
 
     return dataValues.id;
   },
   //! 게시글 수정
-  editPostById: async(post: Omit<PostType, "createdAt">, serverTags: TagType[]) => {
+  editPostById: async (
+    post: Omit<PostType, "createdAt">,
+    serverTags: TagType[]
+  ) => {
     const { id, title, body, tags } = post;
 
-    // 새로 작성된 태그가 있는지 확인 후 등록 
+    // 새로 작성된 태그가 있는지 확인 후 등록
     // 관계된 BridgeTag 테이블 모두 지운 후 다시 생성
     let newTags: TagType[] = newTagFilter(tags, serverTags);
 
-    if(newTags.length) {
-      const result = await db.Tag.bulkCreate(makeNewTags(newTags), { raw: true });
-      newTags = [
-        ...takeDataValues(result)
-      ];
+    if (newTags.length) {
+      const result = await db.Tag.bulkCreate(makeNewTags(newTags), {
+        raw: true,
+      });
+      newTags = [...takeDataValues(result)];
     }
 
     const toBeSaved: TagType[] = makeAllNewTags(tags, newTags);
@@ -138,8 +152,7 @@ const postController = {
     await BridgeTag.bulkCreate(makeBridgeTagsById(toBeSaved, id));
 
     return id;
-  }
+  },
 };
-
 
 export default postController;

@@ -1,7 +1,6 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 
 export * from "./klog.js";
-
 
 export type RouteType = {
   method: "get" | "post" | "put" | "patch" | "delete";
@@ -12,5 +11,11 @@ export type RouteType = {
 export type InitResponseType<T> = {
   status: number;
   message: string;
-  result: T | null
+  result: T | null;
 };
+
+export type MiddleWareFnType = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => void;

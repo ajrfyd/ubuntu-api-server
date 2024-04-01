@@ -12,3 +12,12 @@ export const makeErr = (name: string, message: string) => {
 };
 
 export const getToken = (token: string): string[] => token.split(" ");
+
+export const getMaxAgeTime = (now: Date) => {
+  let h = now.getHours();
+  let m = now.getMinutes();
+
+  h = m > 0 ? 24 - h - 1 : 24 - h;
+  m = 60 - m;
+  return [h, m];
+};

@@ -8,6 +8,7 @@ export type PostType = {
   title: string;
   body: string;
   tags: TagType[];
+  view_cnt?: number;
   createdAt: Date;
 };
 
@@ -18,7 +19,7 @@ export type BeforePostType = Omit<PostType, "tags"> & {
 export type TobeSavedPostType = {
   title: string;
   body: string;
-  tags: TagType[]
+  tags: TagType[];
 };
 
 export type UserInfoType = {

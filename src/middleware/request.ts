@@ -38,12 +38,12 @@ export const getAllTags = async (
 };
 
 export const postCookieChecker: MiddleWareFnType = async (req, res, next) => {
-  const { params } = req;
-  if (!params) return next();
+  const { id } = req.params;
+  if (!id) return next();
   const visitDate = req.signedCookies[req.params.id] as string;
   if (!visitDate) {
     const [h, m] = getMaxAgeTime(new Date());
-    res.cookie(params.id, new Date(), {
+    res.cookie(id, new Date(), {
       httpOnly: true,
       sameSite: "lax",
       secure: process.env.NODE_ENV === "production",
@@ -54,12 +54,12 @@ export const postCookieChecker: MiddleWareFnType = async (req, res, next) => {
 
     const post: Pick<PostType, "view_cnt"> = await db.Post.findOne({
       attributes: ["view_cnt"],
-      where: { id: params.id },
+      where: { id },
       raw: true,
     });
     await db.Post.update(
       { view_cnt: (post.view_cnt as number) + 1 },
-      { where: { id: params.id } }
+      { where: { id } }
     );
   }
 

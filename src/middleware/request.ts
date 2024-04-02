@@ -41,9 +41,7 @@ export const postCookieChecker: MiddleWareFnType = async (req, res, next) => {
   const { id } = req.params;
   if (!id) return next();
   const visitDate = req.signedCookies[id] as string;
-  console.log(visitDate, "<<<<<");
   if (!visitDate) {
-    console.log("Inner!~");
     const [h, m] = getMaxAgeTime(new Date());
     res.cookie(id, new Date(), {
       httpOnly: true,

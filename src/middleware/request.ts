@@ -40,14 +40,14 @@ export const getAllTags = async (
 export const postCookieChecker: MiddleWareFnType = async (req, res, next) => {
   const { id } = req.params;
   if (!id) return next();
-  console.log("????:?????");
   const visitDate = req.signedCookies[id] as string;
+  console.log(visitDate, "<<<<<");
   if (!visitDate) {
     console.log("Inner!~");
     const [h, m] = getMaxAgeTime(new Date());
     res.cookie(id, new Date(), {
       httpOnly: true,
-      sameSite: "lax",
+      sameSite: "strict",
       secure: process.env.NODE_ENV === "production",
       maxAge: h * m * 60 * 1000,
       signed: true,

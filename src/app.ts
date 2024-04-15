@@ -25,9 +25,9 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://k-log3943.netlify.app",
       "http://localhost:5500",
       "https://klog.hkound.pe.kr",
+      "http://localhost:3000",
     ],
     methods: ["GET", "POST", "OPTIONS"],
     credentials: true,

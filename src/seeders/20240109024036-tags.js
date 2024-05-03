@@ -176,6 +176,18 @@ module.exports = {
         id: "135363a5-3ded-4422-a801-2022c2765a0c",
         label: "seo",
       },
+      {
+        id: "78688fb8-8045-483b-80fc-768a3c10705c",
+        label: "alias",
+      },
+      {
+        id: "61556aef-a12e-4fd5-bb3b-fdf186cf3d50",
+        label: "static",
+      },
+      {
+        id: "d0d43d50-59de-4388-881f-b62351cb2dfa",
+        label: "file",
+      },
     ]);
   },
 

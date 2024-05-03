@@ -160,6 +160,20 @@ module.exports = {
         createdAt: "2024-03-21 23:15:52",
         updatedAt: "2024-03-21 23:15:52",
       },
+      {
+        id: "7f2b0f4f-e763-451a-8bc6-1a81a2df0f79",
+        title: "Vite 폴더 alias 설정",
+        body: '# Vite 폴더 alias\n### 폴더 alias 란?\n개발 하며 임포트 경로를 보면 상당히 지저분한 경우가 많다...\n\n```js\n// ex)\nimport  Components from "../../../../Components"  \n```\nnext.js에서 폴더 alias로 @를 붙여 사용하는 것을 보고 방법이 없을까 찾아 보았다.\n\n### step 1\n```ts\n// tsconfig.json\n{\n  "compilerOptions": {\n    ...\n    "baseUrl": "src",\n    "paths": {\n      "@/*": ["*"],\n      "@components/*": ["components/*"],\n      "@shared/*": ["components/shared/*"]\n    },\n  },\n  ...\n}   \n```\n### step 2\n```js\n// vite.config.ts\nexport default defineConfig({\n  ...\n  resolve: {\n    alias: [\n      { find: \'@\', replacement: path.resolve(__dirname, \'src\') },\n      {\n        find: \'@components\',\n        replacement: path.resolve(__dirname, \'src/components\'),\n      },\n      {\n        find: \'@shared\',\n        replacement: path.resolve(__dirname, \'src/components/shared\'),\n      },\n    ],\n  },\n});\n```\nstep 3\n```js\nimport CustomButton from "@shared/CustomButton";\n```\n이렇게 사용하면 된다.\n\n### vite plugin 활용 방법\n\n```js\nnpm i -D vite-tsconfig-paths\n\n//* vite.config.ts\nexport default defineConfig({\n  ...\n  resolve: {\n     plugins: [react(), tsconfigPaths()],\n  },\n});\n```\n\n참고로 cra에서 folder alias를 사용하기 위해 eject를 하는 등 복잡하다고 함...',
+        createdAt: "2024-03-29 10:01:13",
+        updatedAt: "2024-03-29 10:01:13",
+      },
+      {
+        id: "1f20ba70-9a6f-4450-8bf6-412ab3fbdc87",
+        title: "Vite 정적 파일 세팅",
+        body: '# Vite 정적 파일 세팅\nVite React 프로젝트를 진행중 assets 폴더의 비디오 파일이 불려오지 않았다..\n\n### vite 프로젝트의 src/assets를 사용 하는 경우\n```js\nimport fileName from "상대경로/fileName";\n\nconst App = () => {\n    ...\n    return (\n        <>\n            <video>\n                <source src={fileName}/> \n            </video>\n        </>\n    );\n}\n```\n이렇게 사용하고,\n\n### vite 프로젝트의 public 폴더를 사용하는 경우\n⚠️ assets 폴더를 public 밑으로 위치 시키고 절대경로로 접근해야 함.\n\n⚠️ javascript로 mport 할 수 없다.\n```js\n//* public/assets/...\nconst App = () => {\n    ...\n    return (\n        <>\n            <video>\n                <source src="/assets/경로/fileName.mp4" type="video/mp4"/> \n            </video>\n        </>\n    );\n}\n```\n이렇게 사용 하면 작동한다. \n\n<a href="https://vitejs.dev/guide/assets.html#the-public-directory" target="_blank">\n[참조1]\n</a>\n<a href="https://www.answeroverflow.com/m/1195197417025445959" target="_blank">\n[참조2]\n</a>',
+        createdAt: "2024-04-10 20:30:40",
+        updatedAt: "2024-04-10 20:30:40",
+      },
     ]);
   },
 

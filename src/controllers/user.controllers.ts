@@ -16,7 +16,7 @@ export const createUser = async (req: RQ, res: RS) => {
     const token = generateToken(newUser.nickName, newUser.role);
 
     res.cookie("jwt", token, {
-      maxAge: 6 * 1000, // MS
+      maxAge: 24 * 60 * 60 * 1000, // MS
       httpOnly: true, // prevent XSS attacks cross-site scripting attacks
       sameSite: "strict", // CSRF attacks cross-site request forgery attacks
       secure: process.env.NODE_ENV !== "development",
@@ -42,7 +42,7 @@ export const loginUser = async (req: RQ, res: RS) => {
     const token = generateToken(user.nickName, user.role);
 
     res.cookie("jwt", token, {
-      maxAge: 6 * 10 * 1000, // MS
+      maxAge: 24 * 60 * 60 * 1000, // MS
       httpOnly: true, // prevent XSS attacks cross-site scripting attacks
       sameSite: "lax", // CSRF attacks cross-site request forgery attacks
       // sameSite: "none",

@@ -188,6 +188,14 @@ module.exports = {
         id: "d0d43d50-59de-4388-881f-b62351cb2dfa",
         label: "file",
       },
+      {
+        id: "ca61a97a-0ebd-40f5-be92-48fb2a1c863a",
+        label: "component",
+      },
+      {
+        id: "629757bb-879f-4ca7-a54c-5584c532a64f",
+        label: "Polymorphic",
+      },
     ]);
   },
 

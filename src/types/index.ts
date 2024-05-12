@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
-export * from "./klog.js";
+export * from "./post.js";
 
 export type RouteType = {
   method: "get" | "post" | "put" | "patch" | "delete";

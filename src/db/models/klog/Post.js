@@ -1,5 +1,5 @@
 const Post = (sequelize, DataTypes) => {
-  const { STRING, DATE, TEXT, BIGINT } = DataTypes;
+  const { STRING, DATE, TEXT, BIGINT, CHAR } = DataTypes;
 
   const post = sequelize.define(
     "Post",
@@ -34,7 +34,7 @@ const Post = (sequelize, DataTypes) => {
       author: {
         type: STRING,
         allowNull: false,
-        defaultValue: "7e1f58cd-9507-48f1-a3da-4dbbee031389",
+        defaultValue: "U-7e1f58cd-9507-48f1-a3da-4dbbee031389",
         comment: "글쓴이",
       },
       view_cnt: {
@@ -42,6 +42,12 @@ const Post = (sequelize, DataTypes) => {
         allowNull: false,
         defaultValue: 0,
         comment: "조회수",
+      },
+      show: {
+        type: CHAR(1),
+        allowNull: false,
+        defaultValue: "A",
+        comment: "A: 공개, B: 비공개",
       },
     },
     {

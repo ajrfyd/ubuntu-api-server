@@ -61,3 +61,8 @@ export type ResponsTokenType = {
   token_type: string;
   scope: string;
 };
+
+export type BridgeTagType = {
+  postId: string;
+  tagId: string;
+};

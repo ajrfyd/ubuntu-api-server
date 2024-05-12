@@ -118,14 +118,14 @@ const post: RouteType[] = [
     path: "/post/edit",
     handler: async (req, res) => {
       const { resultState, tags: serverTags, isAdmin } = req;
-
-      if (!isAdmin) {
-        return res.status(401).json({
-          ...resultState,
-          status: 401,
-          message: "권한이 없는 사용자 입니다.",
-        });
-      }
+      console.log(isAdmin, "<<< isAdmin");
+      // if (!isAdmin) {
+      //   return res.status(401).json({
+      //     ...resultState,
+      //     status: 401,
+      //     message: "권한이 없는 사용자 입니다.",
+      //   });
+      // }
 
       try {
         const result = await editPostById(req.body, serverTags);

@@ -318,6 +318,18 @@ module.exports = {
         postId: "1f20ba70-9a6f-4450-8bf6-412ab3fbdc87",
         tagId: "d0d43d50-59de-4388-881f-b62351cb2dfa",
       },
+      {
+        postId: "3b1f1f05-9043-4463-8709-f65e0cd7d0c8",
+        tagId: "c73e7611-bfbb-45f8-8e93-48517cb1454c",
+      },
+      {
+        postId: "3b1f1f05-9043-4463-8709-f65e0cd7d0c8",
+        tagId: "ca61a97a-0ebd-40f5-be92-48fb2a1c863a",
+      },
+      {
+        postId: "3b1f1f05-9043-4463-8709-f65e0cd7d0c8",
+        tagId: "629757bb-879f-4ca7-a54c-5584c532a64f",
+      },
     ]);
   },
 

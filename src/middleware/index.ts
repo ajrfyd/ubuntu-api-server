@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import { log } from "../utils/index.js";
 export * from "./request.js";
 export * from "./oauth.js";
 
+const { log } = console;
 export const logger = (req: Request, res: Response, next: NextFunction) => {
   const { headers, path } = req;
   log(

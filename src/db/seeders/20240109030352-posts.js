@@ -174,6 +174,13 @@ module.exports = {
         createdAt: "2024-04-10 20:30:40",
         updatedAt: "2024-04-10 20:30:40",
       },
+      {
+        id: "3b1f1f05-9043-4463-8709-f65e0cd7d0c8",
+        title: "Polymorphic한 컴포넌트",
+        body: "# Polymorphic한 컴포넌트에 대하여",
+        createdAt: "2024-04-25 22:45:22",
+        updatedAt: "2024-04-25 22:45:22",
+      },
     ]);
   },
 

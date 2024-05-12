@@ -1,12 +1,11 @@
-import db from "../../models/index.js";
+import db from "../../db/models/index.js";
 
 const tagController = {
-  getTags: async() => {
+  getTags: async () => {
     const result = await db.Tag.findAll({ raw: true });
     console.log(result);
     return result;
-  }
+  },
 };
-
 
 export default tagController;

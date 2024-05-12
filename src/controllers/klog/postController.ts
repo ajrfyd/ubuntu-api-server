@@ -1,5 +1,5 @@
 import { v4 } from "uuid";
-import db from "../../models/index.js";
+import db from "../../db/models/index.js";
 import {
   makeTagObj,
   newTagFilter,
@@ -32,6 +32,7 @@ const postController = {
       ON P.id = B.postId
       LEFT JOIN Tag AS T
       ON B.tagId = T.id
+      WHERE P.deletedAt IS NULL
       GROUP BY P.id
       ORDER BY 5 DESC;
     `;
@@ -137,7 +138,7 @@ const postController = {
     // 새로 작성된 태그가 있는지 확인 후 등록
     // 관계된 BridgeTag 테이블 모두 지운 후 다시 생성
     let newTags: TagType[] = newTagFilter(tags, serverTags);
-
+    console.log("<<<<<<<<<<<<");
     if (newTags.length) {
       const result = await db.Tag.bulkCreate(makeNewTags(newTags), {
         raw: true,

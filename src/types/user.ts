@@ -15,6 +15,7 @@ export type DecodedUser = {
   iss: string;
   sub: string;
   role: UserRole;
+  userId: string;
 };
 
 export type User = {

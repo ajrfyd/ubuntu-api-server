@@ -1,9 +1,11 @@
 import Sequelize from "sequelize";
 import config from "../config/config.js";
-import Tag from "./klog/Tag.js";
-import BridgeTag from "./klog/BridgeTag.js";
-import Post from "./klog/Post.js";
-import User from "./klog/User.js";
+import Tag from "./Tag.js";
+import BridgeTag from "./BridgeTag.js";
+import Post from "./Post.js";
+import User from "./User.js";
+import Room from "./Room.js";
+import Msg from "./Msg.js";
 
 const { NODE_ENV } = process.env;
 
@@ -24,6 +26,8 @@ db.Post = Post(sequelize, Sequelize);
 db.Tag = Tag(sequelize, Sequelize);
 db.BridgeTag = BridgeTag(sequelize, Sequelize);
 db.User = User(sequelize, Sequelize);
+db.Room = Room(sequelize, Sequelize);
+db.Msg = Msg(sequelize, Sequelize);
 
 Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {

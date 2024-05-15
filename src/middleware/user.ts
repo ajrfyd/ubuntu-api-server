@@ -12,9 +12,15 @@ export const checkUserDuplication: MiddlewareFnType = async (
     return failRes(400, "값이 모두 입력되지 않았습니다.");
   if (password !== rePassword)
     return failRes(400, "패스워드가 서로 일치하지 않습니다.");
-  const user = await getUserDataByNickName(nickName);
-  if (user) return failRes(400, "이미 존재하는 닉네임 입니다.");
-  next();
+  try {
+    const user = await getUserDataByNickName(nickName);
+    if (user) return failRes(400, "이미 존재하는 닉네임 입니다.");
+    next();
+  } catch (e) {
+    if (e instanceof Error) {
+      failRes(500, "잠시 후 다시 시도해 주세요");
+    }
+  }
 };
 
 export const checkUserLoginInfo: MiddlewareFnType = (req, res, next) => {

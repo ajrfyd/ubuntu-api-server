@@ -1,19 +1,19 @@
+import { MiddlewareFnType } from "../types/common";
 import jwt from "jsonwebtoken";
-import { type MiddlewareFnType } from "../types/common.js";
-import { UserRole, DecodedUser } from "../types/user.js";
+import { findOrCreateRoom } from "../services/msg.services.js";
+import { DecodedUser } from "../types/user";
 
-export const cookieChecker: MiddlewareFnType = async (req, res, next) => {
-  const { failRes } = req;
-
+export const checkRoom: MiddlewareFnType = async (req, res, next) => {
+  const { failRes, signedCookies } = req;
   try {
-    const { jwt: token } = req.signedCookies;
+    const { jwt: token } = signedCookies;
     if (!token) return failRes(403, "토큰이 유효하지 않거나 권한이 없습니다.");
     const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
     if (!decoded) return failRes(401, "잘못된 인증 정보 입니다.");
-    // console.log(decoded, "<<<<<decoded", typeof decoded);
-    req.decodedUserInfo = {
-      ...(decoded as DecodedUser),
-    };
+
+    const { userId } = decoded as DecodedUser;
+    const [room, created] = await findOrCreateRoom(userId);
+    req.needToNewMsg = { roomId: room.roomId, userId };
 
     next();
   } catch (e) {
@@ -23,6 +23,5 @@ export const cookieChecker: MiddlewareFnType = async (req, res, next) => {
         return failRes(401, "토큰이 만료되었습니다.");
       if (name === "JsonWebTokenError") return failRes(400, message);
     }
-    console.log(e, "Auth Middleware");
   }
 };

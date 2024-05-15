@@ -7,6 +7,8 @@ import db from "./db/models/index.js";
 import router from "./routes/index.js";
 import postRouter from "./routes/post.routes.js";
 import userRouter from "./routes/user.routes.js";
+import msgRouter from "./routes/msg.router.js";
+import { app, server } from "./socket/socket.js";
 
 import {
   logger,
@@ -22,7 +24,7 @@ import { log, __dirname, errorHandler } from "./utils/index.js";
 // });
 
 const { PORT, COOKIE_SECRET } = process.env;
-const app = express();
+// const app = express();
 const staticPath = path.join(__dirname, "/src/assets");
 
 db.sequelize.sync().catch(console.log);
@@ -43,6 +45,7 @@ app.use(logger, responseStateMaker, getAllTags);
 app.use("/klog", router.klog);
 app.use("/blog", postRouter);
 app.use("/user", userRouter);
+app.use("/msg", msgRouter);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("<h1>Welcome to hk's Api Server;;</h1>");
@@ -54,6 +57,6 @@ app.get("/*", (req, res) => {
   res.status(404).sendFile(staticPath + "/html/404.html");
 });
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   log(`Server Listening On Port: ${PORT}`);
 });

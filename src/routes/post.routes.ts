@@ -4,7 +4,7 @@ import {
   getPostById,
   writePost,
   updatePost,
-} from "../controllers/post.controller.js";
+} from "../controllers/post.controllers.js";
 import { cookieChecker } from "../middleware/auth.js";
 const postRouter = express.Router();
 

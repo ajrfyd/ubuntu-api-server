@@ -13,7 +13,7 @@ export const createUser = async (req: RQ, res: RS) => {
   try {
     const hashedPwd = await hashPassword(password);
     const newUser = await createUserData({ nickName, password: hashedPwd });
-    const token = generateToken(newUser.nickName, newUser.role);
+    const token = generateToken(newUser.nickName, newUser.role, newUser.id);
 
     res.cookie("jwt", token, {
       maxAge: 24 * 60 * 60 * 1000, // MS
@@ -39,7 +39,7 @@ export const loginUser = async (req: RQ, res: RS) => {
     const comparedPwd = await compared(password, user.password);
     if (!comparedPwd) return failRes(401, "비밀번호를 다시 확인해 주세요.");
 
-    const token = generateToken(user.nickName, user.role);
+    const token = generateToken(user.nickName, user.role, user.id);
 
     res.cookie("jwt", token, {
       maxAge: 24 * 60 * 60 * 1000, // MS

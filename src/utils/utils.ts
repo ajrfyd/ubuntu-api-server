@@ -1,8 +1,10 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { UserRole } from "../types/user";
+import constants from "./constants.js";
 
 const { BC_SALT, JWT_SECRET } = process.env;
+const { EXPIRES } = constants;
 
 export const hashPassword = (password: string) =>
   bcrypt.hash(password, Number(BC_SALT));
@@ -28,10 +30,14 @@ export const getMaxAgeTime = (now: Date) => {
   return [h, m];
 };
 
-export const generateToken = (nickName: string, role: UserRole) =>
-  jwt.sign({ nickName, role }, JWT_SECRET as string, {
+export const generateToken = (
+  nickName: string,
+  role: UserRole,
+  userId: string
+) =>
+  jwt.sign({ nickName, role, userId }, JWT_SECRET as string, {
     // expiresIn: "15d",
-    expiresIn: "1m",
+    expiresIn: EXPIRES,
     issuer: "ajrfyd",
     subject: "userInfo",
   });

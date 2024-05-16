@@ -1,5 +1,6 @@
-import db from "../db/models/index.js";
+import { Op } from "sequelize";
 import { v4 } from "uuid";
+import db from "../db/models/index.js";
 
 export const findOrCreateRoom = async (userId: string) => {
   const result = await db.Room.findOrCreate({
@@ -21,6 +22,14 @@ type msgParams = {
   msg: string;
 };
 
+export const getMessagesData = async (userId: string, roomId: string) => {
+  const result = await db.Msg.findAll({
+    where: { createUserId: userId, roomId },
+    raw: true,
+  });
+  return result;
+};
+
 export const createMsgData = async (param: msgParams) => {
   const result = await db.Msg.create(
     {
@@ -33,5 +42,33 @@ export const createMsgData = async (param: msgParams) => {
     },
     { raw: true }
   );
+  return result.dataValues;
+};
+
+export const getRoomsData = async () =>
+  await db.Room.findAll({ where: { deletedAt: { [Op.is]: null } } });
+
+export const getMessagesByRoomIdData = async (roomId: string) =>
+  await db.Msg.findAll({ where: { roomId }, raw: true });
+
+type CreateMsgByRoomIdProps = {
+  msg: string;
+  roomId: string;
+  createUserId: string;
+};
+export const createMsgByRoomIdData = async ({
+  msg,
+  roomId,
+  createUserId,
+}: CreateMsgByRoomIdProps) => {
+  const result = await db.Msg.create({
+    msgType: "B",
+    msg: msg,
+    contactIp: "",
+    msgState: "B",
+    createUserId: createUserId,
+    roomId: roomId,
+  });
+
   return result.dataValues;
 };

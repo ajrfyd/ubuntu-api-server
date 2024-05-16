@@ -22,9 +22,9 @@ io.use(async (socket, next) => {
 });
 
 io.on("connection", (socket) => {
-  console.log(socket.id);
-
-  socket.emit("hello", "Hello world???");
+  if (socket.connected) {
+    socket.emit("connected", "complete!");
+  }
 });
 
 export default io;

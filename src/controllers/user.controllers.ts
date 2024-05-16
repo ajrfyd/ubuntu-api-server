@@ -50,7 +50,12 @@ export const loginUser = async (req: RQ, res: RS) => {
       signed: true,
     });
 
-    completeRes({ token, nickName: user.nickName, role: user.role });
+    completeRes({
+      token,
+      nickName: user.nickName,
+      role: user.role,
+      id: user.id,
+    });
   } catch (e) {
     errorRes(e as Error);
   }
@@ -66,7 +71,7 @@ export const getUserInfo = async (req: RQ, res: RS) => {
     const role = user.role === decodedUserInfo.role;
     const nickName = user.nickName === decodedUserInfo.nickName;
     if (!role || !nickName) return failRes(401, "비정상적인 접근 입니다.");
-    completeRes({ nickName: user.nickName, role: user.role });
+    completeRes({ nickName: user.nickName, role: user.role, id: user.id });
   } catch (e) {
     errorRes(e as Error);
   }

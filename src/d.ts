@@ -13,9 +13,14 @@ declare global {
       isAdmin: boolean;
       isVisit: boolean;
       decodedUserInfo: DecodedUser;
-      needToNewMsg: {
+      needToMsgsData: {
         userId: string;
         roomId: string;
+      };
+      verifiedUser: {
+        id: string;
+        nickName: string;
+        role: UserRole;
       };
     }
   }

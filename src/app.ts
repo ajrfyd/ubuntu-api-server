@@ -9,6 +9,7 @@ import postRouter from "./routes/post.routes.js";
 import userRouter from "./routes/user.routes.js";
 import msgRouter from "./routes/msg.router.js";
 import { app, server } from "./socket/socket.js";
+import { cookieChecker } from "./middleware/auth.js";
 
 import {
   logger,
@@ -45,7 +46,7 @@ app.use(logger, responseStateMaker, getAllTags);
 app.use("/klog", router.klog);
 app.use("/blog", postRouter);
 app.use("/user", userRouter);
-app.use("/msg", msgRouter);
+app.use("/msg", cookieChecker, msgRouter);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("<h1>Welcome to hk's Api Server;;</h1>");

@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import { type MiddlewareFnType } from "../types/common.js";
 import { UserRole, DecodedUser } from "../types/user.js";
+import { getUserData } from "../services/user.services.js";
 
 export const cookieChecker: MiddlewareFnType = async (req, res, next) => {
   const { failRes } = req;
@@ -11,6 +12,18 @@ export const cookieChecker: MiddlewareFnType = async (req, res, next) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
     if (!decoded) return failRes(401, "잘못된 인증 정보 입니다.");
     // console.log(decoded, "<<<<<decoded", typeof decoded);
+
+    const { nickName, userId } = decoded as DecodedUser;
+    const userData = await getUserData(nickName, userId);
+    if (!userData)
+      return failRes(400, "비정상적 접근입니다.(쿠키가 조작되었음.)");
+
+    req.verifiedUser = {
+      id: userData.id,
+      nickName: userData.nickName,
+      role: userData.role,
+    };
+
     req.decodedUserInfo = {
       ...(decoded as DecodedUser),
     };

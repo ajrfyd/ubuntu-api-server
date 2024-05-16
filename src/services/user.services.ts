@@ -19,6 +19,12 @@ export const createUserData = async ({
   return result.dataValues;
 };
 
+export const getUserData = async (
+  nickName: string,
+  userId: string
+): Promise<User> =>
+  await db.User.findOne({ where: { nickName, id: userId }, raw: true });
+
 export const getUserDataByNickName = async (
   nickName: string
 ): Promise<User> => {

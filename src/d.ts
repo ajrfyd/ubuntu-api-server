@@ -22,6 +22,11 @@ declare global {
         nickName: string;
         role: UserRole;
       };
+      fromTo: {
+        to: string;
+        from: string;
+        roomId: string;
+      };
     }
   }
 }

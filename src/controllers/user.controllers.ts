@@ -4,7 +4,9 @@ import {
   getUserDataByNickName,
   getUserDataFromCookie,
 } from "../services/user.services.js";
+import { getRoomDataByUserId } from "../services/msg.services.js";
 import { hashPassword, generateToken, compared } from "../utils/utils.js";
+import { findOrCreateRoom } from "../services/msg.services.js";
 
 export const createUser = async (req: RQ, res: RS) => {
   const { completeRes, failRes, errorRes, body } = req;
@@ -14,6 +16,7 @@ export const createUser = async (req: RQ, res: RS) => {
     const hashedPwd = await hashPassword(password);
     const newUser = await createUserData({ nickName, password: hashedPwd });
     const token = generateToken(newUser.nickName, newUser.role, newUser.id);
+    await findOrCreateRoom(newUser.id);
 
     res.cookie("jwt", token, {
       maxAge: 24 * 60 * 60 * 1000, // MS
@@ -50,11 +53,14 @@ export const loginUser = async (req: RQ, res: RS) => {
       signed: true,
     });
 
+    const room = await getRoomDataByUserId(user.id);
+
     completeRes({
       token,
       nickName: user.nickName,
       role: user.role,
       id: user.id,
+      roomId: room.roomId,
     });
   } catch (e) {
     errorRes(e as Error);
@@ -68,10 +74,16 @@ export const getUserInfo = async (req: RQ, res: RS) => {
       decodedUserInfo.nickName,
       decodedUserInfo.role
     );
+    const room = await getRoomDataByUserId(user.id);
     const role = user.role === decodedUserInfo.role;
     const nickName = user.nickName === decodedUserInfo.nickName;
     if (!role || !nickName) return failRes(401, "비정상적인 접근 입니다.");
-    completeRes({ nickName: user.nickName, role: user.role, id: user.id });
+    completeRes({
+      nickName: user.nickName,
+      role: user.role,
+      id: user.id,
+      roomId: room.roomId,
+    });
   } catch (e) {
     errorRes(e as Error);
   }

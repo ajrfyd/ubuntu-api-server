@@ -1,6 +1,10 @@
 import { MiddlewareFnType } from "../types/common";
 import jwt from "jsonwebtoken";
-import { findOrCreateRoom } from "../services/msg.services.js";
+import {
+  findOrCreateRoom,
+  getRoomDataByRoomId,
+  getAdminRoomId,
+} from "../services/msg.services.js";
 import { DecodedUser } from "../types/user";
 
 export const checkRoom: MiddlewareFnType = async (req, res, next) => {
@@ -19,5 +23,30 @@ export const checkRoom: MiddlewareFnType = async (req, res, next) => {
       console.log(name, "msgMd ErrorName");
     }
     console.log(e, "<<< msgMd");
+  }
+};
+
+// Todo 범용성 있게 고치자
+export const getFromTo: MiddlewareFnType = async (req, res, next) => {
+  const { errorRes, verifiedUser } = req;
+  const { id } = verifiedUser;
+  let { id: roomId } = req.params;
+
+  try {
+    if (!roomId) {
+      const [admin] = await getAdminRoomId();
+      roomId = admin.roomId;
+    }
+
+    const room = await getRoomDataByRoomId(roomId);
+
+    req.fromTo = {
+      to: room.createUserId,
+      from: id,
+      roomId: room.roomId,
+    };
+    next();
+  } catch (e) {
+    errorRes(e as Error);
   }
 };

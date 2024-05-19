@@ -6,6 +6,8 @@ import {
   createNewBridgeTags,
   updatePostData,
   deleteBridgeTags,
+  getTagsData,
+  getPostsDataByTagId,
 } from "../services/post.services.js";
 import { RQ, RS } from "../types/common.js";
 import { type TagType, type BridgeTagType } from "../types/post.js";
@@ -33,7 +35,23 @@ export const getPostById = async (req: RQ, res: RS) => {
   const { id } = req.params;
   try {
     const result = await getPostByIdData(id);
-    completeRes({ ...result, tags });
+    // completeRes({ ...result, tags });
+    completeRes(result);
+  } catch (e) {
+    errorRes(e as Error);
+  }
+};
+
+export const getPostsByTagId = async (req: RQ, res: RS) => {
+  const { completeRes, errorRes, tags } = req;
+  const { id } = req.params;
+
+  try {
+    const result = await getPostsDataByTagId(id);
+    completeRes({
+      posts: result,
+      tags,
+    });
   } catch (e) {
     errorRes(e as Error);
   }
@@ -96,6 +114,17 @@ export const updatePost = async (req: RQ, res: RS) => {
     await createNewBridgeTags(makeBridgeTagsById(toBeSaved, id));
 
     completeRes(req.params.id);
+  } catch (e) {
+    errorRes(e as Error);
+  }
+};
+
+export const getTags = async (req: RQ, res: RS) => {
+  const { errorRes, completeRes } = req;
+  try {
+    const result = await getTagsData();
+
+    completeRes(result);
   } catch (e) {
     errorRes(e as Error);
   }

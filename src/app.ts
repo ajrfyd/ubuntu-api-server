@@ -4,7 +4,6 @@ import cookieparser from "cookie-parser";
 import "./db/config/init.js";
 import path from "path";
 import db from "./db/models/index.js";
-import router from "./routes/index.js";
 import postRouter from "./routes/post.routes.js";
 import userRouter from "./routes/user.routes.js";
 import msgRouter from "./routes/msg.router.js";
@@ -43,7 +42,6 @@ app.use(
 
 app.use(logger, responseStateMaker, getAllTags);
 
-app.use("/klog", router.klog);
 app.use("/blog", postRouter);
 app.use("/user", userRouter);
 app.use("/msg", cookieChecker, msgRouter);

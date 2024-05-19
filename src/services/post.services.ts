@@ -88,3 +88,34 @@ export const updatePostData = async ({
 export const deleteBridgeTags = async (id: string) => {
   return await db.BridgeTag.destroy({ where: { postId: id }, raw: true });
 };
+
+export const getTagsData = async () => await db.Tag.findAll({ raw: true });
+
+export const getPostsDataByTagId = async (id: string) => {
+  const all = id === "a8c69f24-d448-4d23-aef7-22f4b62415b5";
+  const query = `
+      SELECT * FROM (SELECT
+          P.id,
+          title,
+          body,
+          GROUP_CONCAT(T.label, ":" , T.id SEPARATOR ",") AS tags,
+          P.createdAt
+        FROM Post AS P
+        LEFT JOIN BridgeTag AS B
+        ON P.id = B.postId
+        LEFT JOIN Tag AS T
+        ON B.tagId = T.id
+        GROUP BY P.id
+      ) as tmp
+      ${all ? "" : "WHERE tmp.tags LIKE :tagId"}
+      ;
+    `;
+
+  const result: BeforePostType[] = await sequelize.query(query, {
+    type: sequelize.QueryTypes.SELECT,
+    raw: true,
+    replacements: { tagId: `%${id}%` },
+  });
+
+  return makeTagObj(result);
+};

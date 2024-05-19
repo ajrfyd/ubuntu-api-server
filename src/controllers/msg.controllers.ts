@@ -6,13 +6,14 @@ import {
   createMsgByRoomIdData,
 } from "../services/msg.services.js";
 import { RQ, RS } from "../types/common.js";
+import io, { getSocketId } from "../socket/socket.js";
 
 export const getMessages = async (req: RQ, res: RS) => {
   const { completeRes, errorRes, needToMsgsData } = req;
   const { roomId, userId } = needToMsgsData;
 
   try {
-    const result = await getMessagesData(userId, roomId);
+    const result = await getMessagesData(roomId);
     completeRes(result);
   } catch (e) {
     errorRes(e as Error);
@@ -20,11 +21,13 @@ export const getMessages = async (req: RQ, res: RS) => {
 };
 
 export const createMessage = async (req: RQ, res: RS) => {
-  const { needToMsgsData, completeRes, errorRes, failRes } = req;
+  const { needToMsgsData, completeRes, errorRes, fromTo } = req;
   const { msg } = req.body;
 
   try {
     const newMsg = await createMsgData({ ...needToMsgsData, msg });
+    io.to(getSocketId(fromTo.to)).emit("onlineMsg", newMsg);
+
     completeRes(newMsg);
   } catch (e) {
     errorRes(e as Error);
@@ -38,6 +41,7 @@ export const getRooms = async (req: RQ, res: RS) => {
 
   try {
     const result = await getRoomsData();
+    // io.to().emit();
 
     completeRes(result);
   } catch (e) {
@@ -58,16 +62,19 @@ export const getMessagesByRoomId = async (req: RQ, res: RS) => {
 };
 
 export const createMessageByRoomId = async (req: RQ, res: RS) => {
-  const { completeRes, errorRes, verifiedUser } = req;
-  const { id } = req.params;
+  const { completeRes, errorRes, verifiedUser, fromTo } = req;
+  const { id: roomId } = req.params;
   const { msg } = req.body;
 
   try {
     const result = await createMsgByRoomIdData({
-      roomId: id,
+      roomId,
       createUserId: verifiedUser.id,
       msg,
     });
+
+    io.to(getSocketId(fromTo.to)).emit("onlineMsg", result);
+
     completeRes(result);
   } catch (e) {
     errorRes(e as Error);

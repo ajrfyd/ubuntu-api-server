@@ -57,6 +57,13 @@ const User = (sequelize, DataTypes) => {
     }
   );
 
+  user.associate = (model) =>
+    user.hasOne(model.Room, {
+      foreignKey: "createUserId",
+      target: "id",
+      onDelete: "SET NULL",
+    });
+
   return user;
 };
 

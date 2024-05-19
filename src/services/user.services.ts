@@ -1,6 +1,7 @@
 import { v4 } from "uuid";
 import db from "../db/models/index.js";
 import { NewUser, UserRole, User } from "../types/user.js";
+import { Op } from "sequelize";
 
 export const createUserData = async ({
   nickName,

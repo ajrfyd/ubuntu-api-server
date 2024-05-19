@@ -22,11 +22,11 @@ const Room = (sequelize, DataTypes) => {
         defaultValues: "B",
         comment: "A: 사용중(Opend), B: 비사용(Closed)",
       },
-      createUserId: {
-        type: STRING(50),
-        allowNull: false,
-        comment: "생성 유저 아이디",
-      },
+      // createUserId: {
+      //   type: STRING(50),
+      //   allowNull: false,
+      //   comment: "생성 유저 아이디",
+      // },
       deleteUserId: {
         type: STRING(50),
         allowNull: true,

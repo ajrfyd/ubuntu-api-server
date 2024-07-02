@@ -33,8 +33,6 @@ io.on("connection", (socket) => {
     socket.emit("connected", "Socket connection successful!");
     socket.emit("onlineUser", userSocketMap);
 
-    socket.on("tsts", console.log);
-
     socket.on(
       "readMsgs",
       async (msgInfo: { createUserId: string; roomId: string }) => {
@@ -43,6 +41,8 @@ io.on("connection", (socket) => {
           createUserId: msgInfo.createUserId,
           roomId: msgInfo.roomId,
         });
+
+        socket.emit("zzz", "zzzz");
       }
     );
   }

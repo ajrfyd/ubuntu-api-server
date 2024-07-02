@@ -36,6 +36,8 @@ export const getPostById = async (req: RQ, res: RS) => {
   try {
     const result = await getPostByIdData(id);
     // completeRes({ ...result, tags });
+    if (!result.id) return failRes(404, "게시글이 존재하지 않습니다.");
+    // failRes(404, "게시글이 존재하지 않습니다.");
     completeRes(result);
   } catch (e) {
     errorRes(e as Error);
@@ -59,7 +61,7 @@ export const getPostsByTagId = async (req: RQ, res: RS) => {
 
 // Todo 쿠키 인증
 export const writePost = async (req: RQ, res: RS) => {
-  const { completeRes, errorRes } = req;
+  const { completeRes, errorRes, failRes } = req;
   try {
     const { tags: registeredTags } = req;
     const { title, body, tags } = req.body;
@@ -124,6 +126,19 @@ export const getTags = async (req: RQ, res: RS) => {
   try {
     const result = await getTagsData();
 
+    completeRes(result);
+  } catch (e) {
+    errorRes(e as Error);
+  }
+};
+
+export const getPostsByTagId2 = async (req: RQ, res: RS) => {
+  const { completeRes, errorRes } = req;
+  const { tagId } = req.query;
+  console.log(tagId);
+
+  try {
+    const result = await getPostsDataByTagId(tagId as string);
     completeRes(result);
   } catch (e) {
     errorRes(e as Error);

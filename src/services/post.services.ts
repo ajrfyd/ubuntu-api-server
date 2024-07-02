@@ -107,7 +107,7 @@ export const getPostsDataByTagId = async (id: string) => {
         ON B.tagId = T.id
         GROUP BY P.id
       ) as tmp
-      ${all ? "" : "WHERE tmp.tags LIKE :tagId"}
+      ${all ? "ORDER BY tmp.createdAt DESC" : "WHERE tmp.tags LIKE :tagId"}
       ;
     `;
 

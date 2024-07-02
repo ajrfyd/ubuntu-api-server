@@ -142,6 +142,5 @@ export const changStateMsg = async ({
     }
   );
 
-  console.log(result);
   return result;
 };

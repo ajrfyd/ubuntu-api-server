@@ -33,6 +33,7 @@ io.use(async (socket, next) => {
   // ^ 쿠키가 있는 경우 쿠키 정보를 파싱해서 리턴
   // ^ 쿠키가 없는 경우 unknownUser 리턴
   const { cookie: cks } = socket.handshake.headers;
+  console.log(cks, "<<<<cks");
   const parsedCks = cookie.parse(cks as string);
   console.log(parsedCks);
 

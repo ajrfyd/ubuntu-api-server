@@ -26,7 +26,6 @@ import { log, __dirname, errorHandler } from "./utils/index.js";
 const { PORT, COOKIE_SECRET } = process.env;
 // const app = express();
 const staticPath = path.join(__dirname, "/src/assets");
-console.log("Testststs");
 
 db.sequelize.sync().catch(console.log);
 app.use(express.static(staticPath));

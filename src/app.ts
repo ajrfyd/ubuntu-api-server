@@ -27,7 +27,9 @@ const { PORT, COOKIE_SECRET } = process.env;
 // const app = express();
 const staticPath = path.join(__dirname, "/src/assets");
 
-db.sequelize.sync().catch(console.log);
+db.sequelize
+  .sync()
+  .catch((e: any) => console.log(e, "This is Sequelize Error!!!"));
 app.use(express.static(staticPath));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

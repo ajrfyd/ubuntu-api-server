@@ -46,7 +46,6 @@ io.use(async (socket, next) => {
       if (!token) return unknownUserHandler();
 
       const decoded = decodeUser(token);
-      console.log(decoded);
       const roomInfo = await getRoomDataByUserId(decoded.userId);
 
       userSocketMap[socket.id] = decoded.userId;
@@ -63,40 +62,6 @@ io.use(async (socket, next) => {
     }
     next(new Error("Authentication error"));
   }
-
-  // const parsedCks = cookie.parse(cks as string);
-  // console.log(parsedCks);
-
-  // const sigendCookie = cookieParser.signedCookies(
-  //   parsedCks,
-  //   process.env.COOKIE_SECRET
-  // );
-
-  // const token = sigendCookie["jwt"];
-
-  // if (token) {
-  //   try {
-  //     // const decoded = jwt.verify(token, process.env.JWT_SECRET);
-  //     const decoded = decodeUser(token);
-  //     const roomInfo = await getRoomDataByUserId(decoded.userId);
-
-  //     userSocketMap[socket.id] = decoded.userId;
-  //     socket.emit("decodedUser", { ...decoded, roomId: roomInfo.roomId });
-  //     return next();
-  //   } catch (e) {
-  //     console.error("JWT verification failed:", e);
-  //     if (e instanceof jwt.JsonWebTokenError) {
-  //       console.error("JWT Error details:", e.name, e.message);
-  //       console.error("Received token:", token);
-  //     }
-  //     next(new Error("Authentication error"));
-  //   }
-  // } else {
-  //   const unknownUser = `unknown-${Date.now()}`;
-  //   userSocketMap[socket.id] = unknownUser;
-  //   socket.emit("unknownUser", unknownUser);
-  // }
-
   next();
 });
 
@@ -120,8 +85,6 @@ io.on("connection", (socket) => {
           createUserId: msgInfo.createUserId,
           roomId: msgInfo.roomId,
         });
-
-        socket.emit("zzz", "zzzz");
       }
     );
   }

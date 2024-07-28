@@ -34,6 +34,7 @@ io.use(async (socket, next) => {
   // ^ 쿠키가 없는 경우 unknownUser 리턴
   const { cookie: cks } = socket.handshake.headers;
   const parsedCks = cookie.parse(cks as string);
+  console.log(parsedCks);
 
   const sigendCookie = cookieParser.signedCookies(
     parsedCks,

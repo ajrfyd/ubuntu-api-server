@@ -97,7 +97,7 @@ io.on("connection", (socket) => {
   socket.on("viewControll", async (viewInfo) => {
     const { id, roomId, role } = viewInfo;
     const result = await msgChageStateHandler(id, roomId, role);
-    console.log(result);
+    // console.log(result);
   });
 
   socket.on("disconnect", (reason) => {

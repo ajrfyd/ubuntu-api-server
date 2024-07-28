@@ -47,6 +47,7 @@ export const getFromTo: MiddlewareFnType = async (req, res, next) => {
     };
     next();
   } catch (e) {
+    console.log(e);
     errorRes(e as Error);
   }
 };

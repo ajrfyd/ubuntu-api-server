@@ -17,6 +17,7 @@ msgRouter.get("/", checkRoom, getMessages);
 msgRouter.get("/room", getRooms);
 // 메세지 작성
 msgRouter.post("/", checkRoom, getFromTo, createMessage);
+
 // isAdmin >> room별 msgList
 msgRouter.get("/:id", checkRoom, getMessagesByRoomId);
 // isAdmin >> sendMsg to RoomId

@@ -135,7 +135,7 @@ export const getTags = async (req: RQ, res: RS) => {
 export const getPostsByTagId2 = async (req: RQ, res: RS) => {
   const { completeRes, errorRes } = req;
   const { tagId } = req.query;
-  console.log(tagId);
+  // console.log(tagId);
 
   try {
     const result = await getPostsDataByTagId(tagId as string);

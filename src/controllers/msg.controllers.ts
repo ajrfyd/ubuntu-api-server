@@ -6,7 +6,8 @@ import {
   createMsgByRoomIdData,
 } from "../services/msg.services.js";
 import { RQ, RS } from "../types/common.js";
-import io, { getSocketId } from "../socket/socket.js";
+import io, { userSocketMap } from "../socket/socket.js";
+import { getSocketId } from "../utils/utils.js";
 
 export const getMessages = async (req: RQ, res: RS) => {
   const { completeRes, errorRes, needToMsgsData } = req;
@@ -15,20 +16,6 @@ export const getMessages = async (req: RQ, res: RS) => {
   try {
     const result = await getMessagesData(roomId);
     completeRes(result);
-  } catch (e) {
-    errorRes(e as Error);
-  }
-};
-
-export const createMessage = async (req: RQ, res: RS) => {
-  const { needToMsgsData, completeRes, errorRes, fromTo } = req;
-  const { msg } = req.body;
-
-  try {
-    const newMsg = await createMsgData({ ...needToMsgsData, msg });
-    io.to(getSocketId(fromTo.to)).emit("onlineMsg", newMsg);
-
-    completeRes(newMsg);
   } catch (e) {
     errorRes(e as Error);
   }
@@ -61,6 +48,26 @@ export const getMessagesByRoomId = async (req: RQ, res: RS) => {
   }
 };
 
+export const createMessage = async (req: RQ, res: RS) => {
+  const { needToMsgsData, completeRes, errorRes, fromTo } = req;
+  const { msg } = req.body;
+
+  try {
+    const newMsg = await createMsgData({ ...needToMsgsData, msg });
+    // io.to(getSocketId(fromTo.to, userSocketMap)).emit("onlineMsg", newMsg);
+    const current = getSocketId(userSocketMap, fromTo.to);
+    // console.log(current);
+
+    if (current) {
+      io.to(current).emit("receiveMsg", newMsg);
+    }
+
+    completeRes(newMsg);
+  } catch (e) {
+    errorRes(e as Error);
+  }
+};
+
 export const createMessageByRoomId = async (req: RQ, res: RS) => {
   const { completeRes, errorRes, verifiedUser, fromTo } = req;
   const { id: roomId } = req.params;
@@ -73,10 +80,15 @@ export const createMessageByRoomId = async (req: RQ, res: RS) => {
       msg,
     });
 
-    io.to(getSocketId(fromTo.to)).emit("onlineMsg", result);
+    const current = getSocketId(userSocketMap, fromTo.to);
+    // console.log(current);
+    if (current) {
+      io.to(current).emit("receiveMsg", result);
+    }
 
     completeRes(result);
   } catch (e) {
+    console.log(e);
     errorRes(e as Error);
   }
 };

@@ -8,11 +8,16 @@ export const cookieChecker: MiddlewareFnType = async (req, res, next) => {
 
   try {
     const { jwt: token } = req.signedCookies;
+    if (!token && req.baseUrl + req.path === "/user/check") {
+      req.hasCookie = false;
+      return next();
+    }
     if (!token) return failRes(403, "토큰이 유효하지 않거나 권한이 없습니다.");
+    // console.log(token, "tokenenenneen");
     const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
     if (!decoded) return failRes(401, "잘못된 인증 정보 입니다.");
     // console.log(decoded, "<<<<<decoded", typeof decoded);
-
+    req.hasCookie = true;
     const { nickName, userId } = decoded as DecodedUser;
     const userData = await getUserData(nickName, userId);
     if (!userData)

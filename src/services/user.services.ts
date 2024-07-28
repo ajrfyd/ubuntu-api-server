@@ -8,7 +8,7 @@ export const createUserData = async ({
   password,
 }: {
   nickName: string;
-  password: string;
+  password?: string;
 }): Promise<NewUser> => {
   const result = await db.User.create({
     id: `U-${v4()}`,
@@ -16,7 +16,7 @@ export const createUserData = async ({
     password,
     role: "user",
   });
-  console.log(result.dataValues);
+
   return result.dataValues;
 };
 

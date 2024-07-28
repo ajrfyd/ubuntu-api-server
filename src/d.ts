@@ -27,9 +27,34 @@ declare global {
         from: string;
         roomId: string;
       };
+      hasCookie: boolean;
+    }
+  }
+
+  namespace NodeJS {
+    interface ProcessEnv {
+      PORT: number;
+      KLOG_DEV_USERNAME: string;
+      KLOG_DEV_PWD: string;
+      KLOG_DEV_DBNAME: string;
+      KLOG_USERNAME: string;
+      KLOG_PWD: string;
+      KLOG_DBNAME: string;
+      KLOG_ENV: "development" | "production";
+      KLOG_PWD_SALT: string;
+      NODE_ENV: "development" | "production";
+      BC_SALT: number;
+      JWT_SECRET: string;
+      COOKIE_SECRET: string;
     }
   }
 }
+
+// declare namespace NodeJS {
+//   interface ProcessEnv {
+//     JWT_SECRET: string;
+//   }
+// }
 
 interface R {}
 interface T {}

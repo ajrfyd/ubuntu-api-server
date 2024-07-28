@@ -1,6 +1,7 @@
 import { Op } from "sequelize";
 import { v4 } from "uuid";
 import db from "../db/models/index.js";
+import { QueryTypes } from "sequelize";
 
 export const findOrCreateRoom = async (userId: string) => {
   const result = await db.Room.findOrCreate({
@@ -142,5 +143,26 @@ export const changStateMsg = async ({
     }
   );
 
+  return result;
+};
+
+export const msgChageStateHandler = async (
+  id: string,
+  roomId: string,
+  role: "admin" | "user"
+) => {
+  const result = await db.Msg.update(
+    { msgState: "A" },
+    {
+      where: {
+        roomId,
+        // msgState: "B",
+        createUserId: {
+          [Op.ne]: id,
+        },
+      },
+      raw: true,
+    }
+  );
   return result;
 };

@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import { UserRole } from "../types/user";
 import constants from "./constants.js";
 
@@ -33,9 +33,10 @@ export const getMaxAgeTime = (now: Date) => {
 export const generateToken = (
   nickName: string,
   role: UserRole,
-  userId: string
+  userId: string,
+  roomId: string
 ) =>
-  jwt.sign({ nickName, role, userId }, JWT_SECRET as string, {
+  jwt.sign({ nickName, role, userId, roomId }, JWT_SECRET as string, {
     // expiresIn: "15d",
     expiresIn: EXPIRES,
     issuer: "ajrfyd",
@@ -44,3 +45,38 @@ export const generateToken = (
 
 export const decodeToken = (token: string) =>
   jwt.verify(token, JWT_SECRET as string);
+
+const userSocketMap: Record<string, string> = {};
+
+export const decodeUser = (token: string): CustomJwtPayload =>
+  jwt.verify(token, process.env.JWT_SECRET) as CustomJwtPayload;
+
+interface CustomJwtPayload extends JwtPayload {
+  nickName: string;
+  role: "user" | "admin";
+  userId: string;
+  iat: number;
+  exp: number;
+  iss: string;
+  sub: string;
+}
+
+export const getSocketId = (
+  socketMap: Record<string, string>,
+  id: string
+): string | null => {
+  const [target] = Object.entries(socketMap).filter((arr) => arr[1] === id);
+
+  return target ? target[0] : null;
+};
+
+export const getCookie = (cookie: string, name: string): string | undefined => {
+  let matches = cookie.match(
+    new RegExp(
+      "(?:^|; )" +
+        name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, "\\$1") +
+        "=([^;]*)"
+    )
+  );
+  return matches ? decodeURIComponent(matches[1]) : undefined;
+};

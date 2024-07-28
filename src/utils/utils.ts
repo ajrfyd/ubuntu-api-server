@@ -1,5 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt, { JwtPayload } from "jsonwebtoken";
+import cookie from "cookie";
+import cookieParser from "cookie-parser";
 import { UserRole } from "../types/user";
 import constants from "./constants.js";
 
@@ -79,4 +81,14 @@ export const getCookie = (cookie: string, name: string): string | undefined => {
     )
   );
   return matches ? decodeURIComponent(matches[1]) : undefined;
+};
+
+export const parseCookieHandler = (cookieStr: string, key: string) => {
+  const parsed = cookie.parse(cookieStr);
+
+  const sigendCookie = cookieParser.signedCookies(
+    parsed,
+    process.env.COOKIE_SECRET
+  );
+  return sigendCookie[key];
 };

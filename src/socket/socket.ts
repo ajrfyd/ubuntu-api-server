@@ -10,7 +10,7 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import cookieParser, { signedCookie } from "cookie-parser";
 import cookie from "cookie";
 import { type DecodedUser } from "../types/user.js";
-import { decodeUser } from "../utils/utils.js";
+import { decodeUser, parseCookieHandler } from "../utils/utils.js";
 import { getRoomDataByUserId } from "../services/msg.services.js";
 
 const { log } = console;
@@ -32,40 +32,70 @@ io.use(async (socket, next) => {
   // ^ cookie 확인
   // ^ 쿠키가 있는 경우 쿠키 정보를 파싱해서 리턴
   // ^ 쿠키가 없는 경우 unknownUser 리턴
-  const { cookie: cks } = socket.handshake.headers;
-  console.log(cks, "<<<<cks");
-  const parsedCks = cookie.parse(cks as string);
-  console.log(parsedCks);
+  const unknownUserHandler = () => {
+    const unknownUser = `unknown-${Date.now()}`;
+    userSocketMap[socket.id] = unknownUser;
+    socket.emit("unknownUser", unknownUser);
+  };
+  try {
+    const { cookie } = socket.handshake.headers;
+    // console.log(cks, "<<<<cks");
+    if (cookie) {
+      const token = parseCookieHandler(cookie, "jwt") as string;
 
-  const sigendCookie = cookieParser.signedCookies(
-    parsedCks,
-    process.env.COOKIE_SECRET
-  );
+      if (!token) return unknownUserHandler();
 
-  const token = sigendCookie["jwt"];
-
-  if (token) {
-    try {
-      // const decoded = jwt.verify(token, process.env.JWT_SECRET);
       const decoded = decodeUser(token);
+      console.log(decoded);
       const roomInfo = await getRoomDataByUserId(decoded.userId);
 
       userSocketMap[socket.id] = decoded.userId;
       socket.emit("decodedUser", { ...decoded, roomId: roomInfo.roomId });
       return next();
-    } catch (e) {
-      console.error("JWT verification failed:", e);
-      if (e instanceof jwt.JsonWebTokenError) {
-        console.error("JWT Error details:", e.name, e.message);
-        console.error("Received token:", token);
-      }
-      next(new Error("Authentication error"));
+    } else {
+      unknownUserHandler();
     }
-  } else {
-    const unknownUser = `unknown-${Date.now()}`;
-    userSocketMap[socket.id] = unknownUser;
-    socket.emit("unknownUser", unknownUser);
+  } catch (e) {
+    console.error("JWT verification failed:", e);
+    if (e instanceof jwt.JsonWebTokenError) {
+      console.error("JWT Error details:", e.name, e.message);
+      // console.error("Received token:", token);
+    }
+    next(new Error("Authentication error"));
   }
+
+  // const parsedCks = cookie.parse(cks as string);
+  // console.log(parsedCks);
+
+  // const sigendCookie = cookieParser.signedCookies(
+  //   parsedCks,
+  //   process.env.COOKIE_SECRET
+  // );
+
+  // const token = sigendCookie["jwt"];
+
+  // if (token) {
+  //   try {
+  //     // const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  //     const decoded = decodeUser(token);
+  //     const roomInfo = await getRoomDataByUserId(decoded.userId);
+
+  //     userSocketMap[socket.id] = decoded.userId;
+  //     socket.emit("decodedUser", { ...decoded, roomId: roomInfo.roomId });
+  //     return next();
+  //   } catch (e) {
+  //     console.error("JWT verification failed:", e);
+  //     if (e instanceof jwt.JsonWebTokenError) {
+  //       console.error("JWT Error details:", e.name, e.message);
+  //       console.error("Received token:", token);
+  //     }
+  //     next(new Error("Authentication error"));
+  //   }
+  // } else {
+  //   const unknownUser = `unknown-${Date.now()}`;
+  //   userSocketMap[socket.id] = unknownUser;
+  //   socket.emit("unknownUser", unknownUser);
+  // }
 
   next();
 });
